@@ -1,0 +1,1 @@
+Vite 2.x plugin to load SVG files
