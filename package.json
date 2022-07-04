@@ -1,9 +1,9 @@
 {
-    "name": "vite-plugin-svg",
-    "version": "0.0.2",
+    "name": "vite-plugin-svg-loader",
+    "version": "0.0.1",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "repository": "git@github.com:zch233/vite-plugin-svg.git",
+    "repository": "git@github.com:zch233/vite-plugin-svg-loader.git",
     "author": "zhangchao <529743595@qq.com>",
     "license": "MIT",
     "files": [
