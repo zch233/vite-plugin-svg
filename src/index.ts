@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import parseXML, { XmlElement } from '@rgrove/parse-xml';
 
 export default function (options = {}): Plugin {
-    const { svgoConfig, svgo, defaultImport } = options as any;
+    const { defaultImport } = options as any;
     const svgRegex = /\.svg(\?(raw|component))?$/;
     return {
         name: 'vite-plugin-svg',
