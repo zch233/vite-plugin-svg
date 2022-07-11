@@ -22,7 +22,6 @@ import svgLoader from 'vite-plugin-svg-loader';
 
 ```
 import xxx from './xxx.svg'
-import yyy from './yyy.svg?row'
 
 console.log(xxx)
 // {
@@ -38,7 +37,14 @@ console.log(xxx)
 //   ]
 // }
 
+
+import yyy from './yyy.svg?row'
+
 console.log(xxx)
 // raw data
 // <svg ...>...</svg>
+
+
+import zzz from './zzz.svg?url'
+// use default svg loader
 ```
