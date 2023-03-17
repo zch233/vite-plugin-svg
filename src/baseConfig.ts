@@ -1,0 +1,53 @@
+import SVGO from 'svgo';
+
+export const base: SVGO.OptimizeOptions = {
+    // https://github.com/mui/material-ui/blob/master/packages/mui-icons-material/builder.js
+    floatPrecision: 4,
+    multipass: true,
+    plugins: [
+        { name: 'cleanupAttrs' },
+        { name: 'removeDoctype' },
+        { name: 'removeXMLProcInst' },
+        { name: 'removeComments' },
+        { name: 'removeMetadata' },
+        { name: 'removeTitle' },
+        { name: 'removeDesc' },
+        { name: 'removeUselessDefs' },
+        { name: 'removeEditorsNSData' },
+        { name: 'removeEmptyAttrs' },
+        { name: 'removeHiddenElems' },
+        { name: 'removeEmptyText' },
+        { name: 'removeViewBox' },
+        { name: 'cleanupEnableBackground' },
+        { name: 'minifyStyles' },
+        { name: 'convertStyleToAttrs' },
+        { name: 'convertColors' },
+        { name: 'convertPathData' },
+        { name: 'convertTransform' },
+        { name: 'removeUnknownsAndDefaults' },
+        { name: 'removeNonInheritableGroupAttrs' },
+        {
+            name: 'removeUselessStrokeAndFill',
+            params: {
+                // https://github.com/svg/svgo/issues/727#issuecomment-303115276
+                removeNone: true,
+            },
+        },
+        { name: 'removeUnusedNS' },
+        { name: 'cleanupIDs' },
+        { name: 'cleanupNumericValues' },
+        { name: 'cleanupListOfValues' },
+        { name: 'moveElemsAttrsToGroup' },
+        { name: 'moveGroupAttrsToElems' },
+        { name: 'collapseGroups' },
+        { name: 'removeRasterImages' },
+        { name: 'mergePaths' },
+        { name: 'convertShapeToPath' },
+        { name: 'sortAttrs' },
+        { name: 'removeDimensions' },
+        { name: 'removeElementsByAttr' },
+        { name: 'removeStyleElement' },
+        { name: 'removeScriptElement' },
+        { name: 'removeEmptyContainers' },
+    ],
+};

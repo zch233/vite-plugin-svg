@@ -1,9 +1,11 @@
 import type { Plugin } from 'vite';
 import { readFileSync } from 'fs';
 import parseXML, { XmlElement } from '@rgrove/parse-xml';
+import SVGO from 'svgo';
+import { base } from './baseConfig';
 
-export default function (options = {}): Plugin {
-    const { defaultImport } = options as any;
+export default function (options?: { defaultImport: string; svgoConfig?: SVGO.OptimizeOptions }): Plugin {
+    const { defaultImport, svgoConfig } = options || {};
     const svgRegex = /\.svg(\?(raw|component))?$/;
     return {
         name: 'vite-plugin-svg',
@@ -28,15 +30,25 @@ export default function (options = {}): Plugin {
             if (importType === 'raw') {
                 return `export default ${JSON.stringify(SVGString)}`;
             }
-            const svgXMLData = parseXML(SVGString);
-            const svgData = svgXMLData.children?.[0] || {};
-            const abstractNode = element2AbstractNode({
-                name: path.replace(/(.*\/)*([^.]+).*/gi, '$2'),
-                theme: 'custom',
-                extraNodeTransformFactories: [],
-                // @ts-ignore
-            })(svgData);
-            return `export default ${JSON.stringify(abstractNode)}`;
+            const result = SVGO.optimize(SVGString, {
+                ...base,
+                ...svgoConfig,
+                plugins: [...(base.plugins || []), ...(svgoConfig?.plugins || [])],
+            });
+            if ('data' in result) {
+                const svgXMLData = parseXML(result.data);
+                const svgData = svgXMLData.children?.[0] || {};
+                const abstractNode = element2AbstractNode({
+                    name: path.replace(/(.*\/)*([^.]+).*/gi, '$2'),
+                    theme: 'custom',
+                    extraNodeTransformFactories: [],
+                    // @ts-ignore
+                })(svgData);
+                return `export default ${JSON.stringify(abstractNode)}`;
+            } else {
+                console.warn('svgo optimize error');
+                return;
+            }
         },
     };
 }
