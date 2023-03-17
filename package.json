@@ -1,6 +1,6 @@
 {
     "name": "vite-plugin-svg-loader",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "repository": "git@github.com:zch233/vite-plugin-svg-loader.git",
