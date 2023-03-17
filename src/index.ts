@@ -38,13 +38,17 @@ export default function (options?: { defaultImport: string; svgoConfig?: SVGO.Op
             if ('data' in result) {
                 const svgXMLData = parseXML(result.data);
                 const svgData = svgXMLData.children?.[0] || {};
+                const svgName = path.replace(/(.*\/)*([^.]+).*/gi, '$2');
                 const abstractNode = element2AbstractNode({
-                    name: path.replace(/(.*\/)*([^.]+).*/gi, '$2'),
+                    name: svgName,
                     theme: 'custom',
                     extraNodeTransformFactories: [],
                     // @ts-ignore
                 })(svgData);
-                return `export default ${JSON.stringify(abstractNode)}`;
+                if (importType === 'data') {
+                    return `export default ${JSON.stringify(abstractNode)}`;
+                }
+                return `export default ${JSON.stringify({ icon: abstractNode, name: svgName, theme: 'custom' })}`;
             } else {
                 console.warn('svgo optimize error');
                 return;
